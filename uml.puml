@@ -1,0 +1,95 @@
+@startuml
+title Smart Home Automation System - UML
+
+' ===========================
+' ABSTRACT BASE CLASS
+' ===========================
+abstract class Device {
+    -type : string
+    --
+    + getInfo() : string
+    + virtual ~Device()
+   
+}
+
+' ===========================
+' CONCRETE DEVICE CLASSES
+' ===========================
+class Light {
+    - isOn : bool
+    - brightness : int
+    --
+    + turnOn(isOn : bool) : void
+    + setBrightnessLevel(level : int) : void
+    + getInfo() : string
+}
+
+class Thermostat {
+    - temperature : double
+    - mode : string
+    --
+    + setMode(mode : string) : void 
+    + setTemp(temperature : double) : void
+    + getInfo() : string
+}
+
+class Camera {
+    - isRecording : bool
+    - nightVision : bool
+    --
+    + startRec(isRecording : bool, nightVision : bool) : void
+    + getInfo() : string
+}
+
+class DoorLock {
+    - locked : bool
+    --
+    + lock(locked : bool) : void
+    + getInfo() : string
+}
+
+class MotionSensor {
+    - motionDetected : bool
+    --
+    + detect(motionDetected : bool) : void
+    + getInfo() : string
+}
+
+' ===========================
+' FACTORY CLASSES
+' ===========================
+abstract class DeviceFactory {
+    + createDevice(type : string) : Device
+    + virtual ~DeviceFactory()
+   
+}
+
+class BrandAFactory {
+     + createDevice(type : string) : Device
+  
+}
+
+' ===========================
+' SINGLETON HUB
+' ===========================
+'To be implementeddddddd
+
+' ===========================
+' RELATIONSHIPS
+' ===========================
+Device <|-- Light
+Device <|-- Thermostat
+Device <|-- Camera
+Device <|-- DoorLock
+Device <|-- MotionSensor
+
+DeviceFactory <|-- BrandAFactory
+
+BrandAFactory --> Light : creates >
+BrandAFactory --> Thermostat : creates >
+BrandAFactory --> Camera : creates >
+BrandAFactory --> DoorLock : creates >
+BrandAFactory --> MotionSensor : creates >
+
+
+@enduml
